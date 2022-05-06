@@ -12,7 +12,7 @@ def readFile(name):
     file.close()
     return variable
 
-#Sort the alphabetic using the position of the rotor
+#Sort the alphabet using the position of the rotor
 def sortABC(abc, pos):
 
     abcAux=[]
@@ -26,6 +26,9 @@ def sortABC(abc, pos):
 
     return abc
 
+#Sort the alphabet using the position of the rotor
+def encryptMsg(letter):
+    print(1)
 
 #Move the rotors position
 def addRotors(rotors):
