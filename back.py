@@ -32,6 +32,7 @@ def encryptLetter(letter, rotors):
     rotor3 = sortABC(abc, rotors[2])
     rotor2 = sortABC(abc, rotors[1])
     rotor1 = sortABC(abc, rotors[0])
+    print(rotor3)
 
     rotor3_letter = ""
     rotor2_letter = ""
@@ -68,55 +69,49 @@ def encryptLetter(letter, rotors):
         else:
             continue
     rotor1_letter = rotor1[rotor1_letter_pos]
+    return rotor1_letter
 
-    reflector_pos = 0
-    for pos in range(len(abc)):
-        if abc[pos] == rotor1_letter:
-            reflector_pos = 25 - pos
-
-
-    # Reflection
-    reflected_letter = abc[reflector_pos]
-
-    # First rotor again with reflected letter
-    for pos in range(len(abc)):
-        if abc[pos] == reflected_letter:
-            rotor1_letter_pos = pos
-            break
-        else:
-            continue
-    rotor1_letter = rotor1[rotor1_letter_pos]
-
-    # Second rotor with reflected letter
-    for pos in range(len(abc)):
-        if abc[pos] == rotor1_letter:
-            rotor2_letter_pos = pos
-            break
-        else:
-            continue
-    rotor2_letter = rotor2[rotor2_letter_pos]
-
-    for pos in range(len(abc)):
-        if abc[pos] == rotor2_letter:
-            rotor3_letter_pos = pos
-            break
-        else:
-            continue
-
-    return_letter = rotor3[rotor3_letter_pos]
+    # reflector_pos = 0
+    # for pos in range(len(abc)):
+    #     if abc[pos] == rotor1_letter:
+    #         reflector_pos = 25 - pos
 
 
-    return return_letter
+    # # Reflection
+    # reflected_letter = abc[reflector_pos]
+
+    # # First rotor again with reflected letter
+    # for pos in range(len(abc)):
+    #     if abc[pos] == reflected_letter:
+    #         rotor1_letter_pos = pos
+    #         break
+    #     else:
+    #         continue
+    # rotor1_letter = rotor1[rotor1_letter_pos]
+
+    # # Second rotor with reflected letter
+    # for pos in range(len(abc)):
+    #     if abc[pos] == rotor1_letter:
+    #         rotor2_letter_pos = pos
+    #         break
+    #     else:
+    #         continue
+    # rotor2_letter = rotor2[rotor2_letter_pos]
+
+    # for pos in range(len(abc)):
+    #     if abc[pos] == rotor2_letter:
+    #         rotor3_letter_pos = pos
+    #         break
+    #     else:
+    #         continue
+
+    # return_letter = rotor3[rotor3_letter_pos]
 
 
-print(encryptLetter("c", [23,0,25]))
+    # return return_letter//
 
 
-
-
-
-
-
+print(encryptLetter("b", [23,1,6]))
 
 
 #Move the rotors position
