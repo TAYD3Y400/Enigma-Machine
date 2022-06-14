@@ -4,11 +4,15 @@ import tkinter
 from tkinter import *
 from back import *
 from functools import partial
+from typing import List
+
 
 root1 = Tk()
 root= Tk()
 
 message = ""
+
+lights_List = List[Button]
 
 r1Label = Label(root1, text="R1")
 r2Label = Label(root1, text="R2")
@@ -35,7 +39,7 @@ rr = tkinter.Button(root1, text="Ok", bg="green", command= lambda: rotorsReady (
 def rotorsReady(rotors):  
     if (rotors[0]!=NONE) and (rotors[1]!=NONE) and (rotors[2]!=NONE):
         fitRotors(rotors)
-        light_panel()
+        lights_list = light_panel()
         keyboard()
         root1.destroy()
         
@@ -88,7 +92,7 @@ def light_panel():
     bB = tkinter.Button(root, text='B', bg="#494949").grid(row=6, column=5)
     bN = tkinter.Button(root, text='N', bg="#494949").grid(row=6, column=6)
     bM = tkinter.Button(root, text='M', bg="#494949").grid(row=6, column=7)
-
+    return [bA, bB, bC, bD, bE, bF, bG, bH, bI, bJ, bK, bL, bM, bN, bO, bP, bQ, bR, bS, bT, bU, bV, bW, bX, bY, bZ]
 
 def keyboard():
 
@@ -129,12 +133,20 @@ def keyboard():
 
     tkinter.Button(root, text="OK", bg="#17B919", command=partial(keyboard_letter, "OK")).grid(row=10, column=10)
 
+def bright_letter(letter):
+    abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+           'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+    for i in range(len(abc)):
+        if abc[i] == letter:
+            global lights_List[i]. #aquí está la cosa
 
 def keyboard_letter(letter):
     global message
     message=message+(letter)
     print("letra ingresada:" + letter)
     fitMessage(message)
+
 
 
 
