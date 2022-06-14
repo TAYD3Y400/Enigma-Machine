@@ -1,23 +1,47 @@
+from email import message
+from logging import root
 import tkinter
 from tkinter import *
 from back import *
 from functools import partial
 
-root = Tk()
+root1 = Tk()
+root= Tk()
 
-entryMessage = Entry(root, width=20, bg="gray", fg="black")
-entryMessage.grid(row=1, column=0)
+message = ""
+
+r1Label = Label(root1, text="R1")
+r2Label = Label(root1, text="R2")
+r3Label = Label(root1, text="R3")
+
+r1Label.grid(row=1, column=1)
+r2Label.grid(row=1, column=2)
+r3Label.grid(row=1, column=3)
+
+entryMessage1 = Entry(root1, width=1, bg="white", fg="black")
+entryMessage2 = Entry(root1, width=1, bg="white", fg="black")
+entryMessage3 = Entry(root1, width=1, bg="white", fg="black")
+
+entryMessage1.grid(row=2, column=1)
+entryMessage2.grid(row=2, column=2)
+entryMessage3.grid(row=2, column=3)
 
 
 def main():
-    rotors = eval(readFile('rotors.txt'))
+    rotors = []
+rr = tkinter.Button(root1, text="Ok", bg="green", command= lambda: rotorsReady ([entryMessage1.get(),entryMessage2.get(), entryMessage3.get()])).grid(row=2, column=4)
+ 
 
-    fitRotors(rotors)
-    light_panel()
-    keyborad()
-
+def rotorsReady(rotors):  
+    if (rotors[0]!=NONE) and (rotors[1]!=NONE) and (rotors[2]!=NONE):
+        fitRotors(rotors)
+        light_panel()
+        keyboard()
+        root1.destroy()
+        
 
 def fitRotors(rotors):
+
     r1Label = Label(root, text="R1")
     r2Label = Label(root, text="R2")
     r3Label = Label(root, text="R3")
@@ -66,7 +90,7 @@ def light_panel():
     bM = tkinter.Button(root, text='M', bg="#494949").grid(row=6, column=7)
 
 
-def keyborad():
+def keyboard():
 
     label = Label(root).grid(row=7)
     bQ = tkinter.Button(root, text="Q", command=partial(keyboard_letter, "Q")).grid(row=8, column=1)
@@ -107,11 +131,10 @@ def keyborad():
 
 
 def keyboard_letter(letter):
-    message = ""
+    global message
+    message=message+(letter)
     print("letra ingresada:" + letter)
-    while letter != "OK":
-        message += letter
-        fitMessage(letter)
+    fitMessage(message)
 
 
 
