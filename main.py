@@ -1,3 +1,4 @@
+import time
 from email import message
 from logging import root
 import tkinter
@@ -12,7 +13,7 @@ root= Tk()
 
 message = ""
 
-lights_List = List[Button]
+
 
 r1Label = Label(root1, text="R1")
 r2Label = Label(root1, text="R2")
@@ -39,8 +40,8 @@ rr = tkinter.Button(root1, text="Ok", bg="green", command= lambda: rotorsReady (
 def rotorsReady(rotors):  
     if (rotors[0]!=NONE) and (rotors[1]!=NONE) and (rotors[2]!=NONE):
         fitRotors(rotors)
-        lights_list = light_panel()
         keyboard()
+        light_panel()
         root1.destroy()
         
 
@@ -92,60 +93,66 @@ def light_panel():
     bB = tkinter.Button(root, text='B', bg="#494949").grid(row=6, column=5)
     bN = tkinter.Button(root, text='N', bg="#494949").grid(row=6, column=6)
     bM = tkinter.Button(root, text='M', bg="#494949").grid(row=6, column=7)
-    return [bA, bB, bC, bD, bE, bF, bG, bH, bI, bJ, bK, bL, bM, bN, bO, bP, bQ, bR, bS, bT, bU, bV, bW, bX, bY, bZ]
 
 def keyboard():
 
     label = Label(root).grid(row=7)
-    bQ = tkinter.Button(root, text="Q", command=partial(keyboard_letter, "Q")).grid(row=8, column=1)
-    bW = tkinter.Button(root, text="W", command=partial(keyboard_letter, "W")).grid(row=8, column=2)
-    bE = tkinter.Button(root, text="E", command=partial(keyboard_letter, "E")).grid(row=8, column=3)
-    bR = tkinter.Button(root, text="R", command=partial(keyboard_letter, "R")).grid(row=8, column=4)
-    bT = tkinter.Button(root, text="T", command=partial(keyboard_letter, "T")).grid(row=8, column=5)
-    bY = tkinter.Button(root, text="Y", command=partial(keyboard_letter, "Y")).grid(row=8, column=6)
-    bU = tkinter.Button(root, text="U", command=partial(keyboard_letter, "U")).grid(row=8, column=7)
-    bI = tkinter.Button(root, text="I", command=partial(keyboard_letter, "I")).grid(row=8, column=8)
-    bO = tkinter.Button(root, text="O", command=partial(keyboard_letter, "O")).grid(row=8, column=9)
-    bP = tkinter.Button(root, text="P", command=partial(keyboard_letter, "P")).grid(row=8, column=10)
+    bQ = tkinter.Button(root, text="Q", command=partial(keyboard_letter, "Q", 4, 1)).grid(row=8, column=1)
+    bW = tkinter.Button(root, text="W", command=partial(keyboard_letter, "W", 4, 2)).grid(row=8, column=2)
+    bE = tkinter.Button(root, text="E", command=partial(keyboard_letter, "E", 4, 3)).grid(row=8, column=3)
+    bR = tkinter.Button(root, text="R", command=partial(keyboard_letter, "R", 4, 4)).grid(row=8, column=4)
+    bT = tkinter.Button(root, text="T", command=partial(keyboard_letter, "T", 4, 5)).grid(row=8, column=5)
+    bY = tkinter.Button(root, text="Y", command=partial(keyboard_letter, "Y", 4, 6)).grid(row=8, column=6)
+    bU = tkinter.Button(root, text="U", command=partial(keyboard_letter, "U", 4, 7)).grid(row=8, column=7)
+    bI = tkinter.Button(root, text="I", command=partial(keyboard_letter, "I", 4, 8)).grid(row=8, column=8)
+    bO = tkinter.Button(root, text="O", command=partial(keyboard_letter, "O", 4, 9)).grid(row=8, column=9)
+    bP = tkinter.Button(root, text="P", command=partial(keyboard_letter, "P", 4, 10)).grid(row=8, column=10)
 
-    bA = tkinter.Button(root, text="A", command=partial(keyboard_letter, "A")).grid(row=9, column=1)
-    bS = tkinter.Button(root, text="S", command=partial(keyboard_letter, "S")).grid(row=9, column=2)
-    bD = tkinter.Button(root, text="D", command=partial(keyboard_letter, "D")).grid(row=9, column=3)
-    bF = tkinter.Button(root, text="F", command=partial(keyboard_letter, "F")).grid(row=9, column=4)
-    bG = tkinter.Button(root, text="G", command=partial(keyboard_letter, "G")).grid(row=9, column=5)
-    bH = tkinter.Button(root, text="H", command=partial(keyboard_letter, "H")).grid(row=9, column=6)
-    bJ = tkinter.Button(root, text="J", command=partial(keyboard_letter, "J")).grid(row=9, column=7)
-    bK = tkinter.Button(root, text="K", command=partial(keyboard_letter, "K")).grid(row=9, column=8)
-    bL = tkinter.Button(root, text='L', command=partial(keyboard_letter, "L")).grid(row=9, column=9)
+    bA = tkinter.Button(root, text="A", command=partial(keyboard_letter, "A", 5, 1)).grid(row=9, column=1)
+    bS = tkinter.Button(root, text="S", command=partial(keyboard_letter, "S", 5, 2)).grid(row=9, column=2)
+    bD = tkinter.Button(root, text="D", command=partial(keyboard_letter, "D", 5, 3)).grid(row=9, column=3)
+    bF = tkinter.Button(root, text="F", command=partial(keyboard_letter, "F", 5, 4)).grid(row=9, column=4)
+    bG = tkinter.Button(root, text="G", command=partial(keyboard_letter, "G", 5, 5)).grid(row=9, column=5)
+    bH = tkinter.Button(root, text="H", command=partial(keyboard_letter, "H", 5, 6)).grid(row=9, column=6)
+    bJ = tkinter.Button(root, text="J", command=partial(keyboard_letter, "J", 5, 7)).grid(row=9, column=7)
+    bK = tkinter.Button(root, text="K", command=partial(keyboard_letter, "K", 5, 8)).grid(row=9, column=8)
+    bL = tkinter.Button(root, text='L', command=partial(keyboard_letter, "L", 5, 9)).grid(row=9, column=9)
 
     noneButton = tkinter.Button(root, text="  ").grid(row=9, column=10)
 
-    bZ = tkinter.Button(root, text='Z', command=partial(keyboard_letter, "Z")).grid(row=10, column=1)
-    bX = tkinter.Button(root, text='X', command=partial(keyboard_letter, "X")).grid(row=10, column=2)
-    bC = tkinter.Button(root, text='C', command=partial(keyboard_letter, "C")).grid(row=10, column=3)
-    bV = tkinter.Button(root, text='V', command=partial(keyboard_letter, "V")).grid(row=10, column=4)
-    bB = tkinter.Button(root, text='B', command=partial(keyboard_letter, "B")).grid(row=10, column=5)
-    bN = tkinter.Button(root, text='N', command=partial(keyboard_letter, "N")).grid(row=10, column=6)
-    bM = tkinter.Button(root, text='M', command=partial(keyboard_letter, "M")).grid(row=10, column=7)
+    bZ = tkinter.Button(root, text='Z', command=partial(keyboard_letter, "Z", 6, 1)).grid(row=10, column=1)
+    bX = tkinter.Button(root, text='X', command=partial(keyboard_letter, "X", 6, 2)).grid(row=10, column=2)
+    bC = tkinter.Button(root, text='C', command=partial(keyboard_letter, "C", 6, 3)).grid(row=10, column=3)
+    bV = tkinter.Button(root, text='V', command=partial(keyboard_letter, "V", 6, 4)).grid(row=10, column=4)
+    bB = tkinter.Button(root, text='B', command=partial(keyboard_letter, "B", 6, 5)).grid(row=10, column=5)
+    bN = tkinter.Button(root, text='N', command=partial(keyboard_letter, "N", 6, 6)).grid(row=10, column=6)
+    bM = tkinter.Button(root, text='M', command=partial(keyboard_letter, "M", 6, 7)).grid(row=10, column=7)
 
     noneButton = tkinter.Button(root,text="  ").grid(row=10, column=8)
     noneButton = tkinter.Button(root, text="  ").grid(row=10, column=9)
 
     tkinter.Button(root, text="OK", bg="#17B919", command=partial(keyboard_letter, "OK")).grid(row=10, column=10)
 
-def bright_letter(letter):
-    abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-           'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+def bright_letter(letter, row, column):
+    bright_letter = Label(root, text=letter, bg="yellow")
+    bright_letter.grid(row=row, column=column)
+    root.after(2000, bright_letter_off, letter, row, column)
 
-    for i in range(len(abc)):
-        if abc[i] == letter:
-            global lights_List[i]. #aquí está la cosa
 
-def keyboard_letter(letter):
+def bright_letter_off(letter, row, column):
+    bright_letter = Label(root, text=letter, bg="#494949")
+    bright_letter.grid(row=row, column=column)
+
+
+
+def keyboard_letter(letter, row, column):
+    letter_encrypted= encryptLetter(letter, #rotors) # falta encriptar
+
     global message
-    message=message+(letter)
-    print("letra ingresada:" + letter)
+    message=message+(letter_encrypted)
+    print("letra ingresada:" + letter + "encriptada es:" + letter_encrypted)
     fitMessage(message)
+    bright_letter(letter_encrypted, row, column)
 
 
 
