@@ -37,11 +37,20 @@ rr = tkinter.Button(root1, text="Ok", bg="green", command= lambda: rotorsReady (
 
 def rotorsReady(newRotors):  
     if (newRotors[0]!=NONE) and (newRotors[1]!=NONE) and (newRotors[2]!=NONE):
+        fitDesencrypt()
         fitRotors(newRotors)
         keyboard()
         light_panel()
         root1.destroy()
         
+def fitDesencrypt():
+    desencrypt= readFile('desencrypt.txt')
+    sectionLabel = Label(root, text="Previous Message: ")
+    desLabel = Label(root, text=desencrypt)
+
+    sectionLabel.grid(row=8, column=0)
+    desLabel.grid(row=9, column=0)
+    
 
 def fitRotors(newRotors):
     global rotors
@@ -131,7 +140,7 @@ def keyboard():
     noneButton = tkinter.Button(root,text="  ").grid(row=10, column=8)
     noneButton = tkinter.Button(root, text="  ").grid(row=10, column=9)
 
-    tkinter.Button(root, text="OK", bg="#17B919", command=partial(keyboard_letter, "OK")).grid(row=10, column=10)
+    tkinter.Button(root, text="OK", bg="#17B919", command= okButton).grid(row=10, column=10)
 
 def bright_letter(letter, row, column):
     bright_letter = Label(root, text=letter, bg="yellow")
@@ -160,6 +169,10 @@ def keyboard_letter(letter, row, column):
     fitMessage(message)
     bright_letter(letter_encrypted, row, column)
 
+def okButton():
+    global message
+    writeFile("desencrypt.txt",message)
+    root.destroy()
 
 def fitMessage(message):
     message = Label(root, text=message)
