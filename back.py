@@ -28,16 +28,28 @@ def sortABC(abc, pos):
 
 # Sort the alphabet using the position of the rotor
 def encryptLetter(letter, rotors):
+    letter=letter.lower()
+    print("---"+letter)
+    print(rotors)
+    
     abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    rotor3 = sortABC(abc, rotors[2])
+    rotor1 = sortABC(abc, rotors[2])
     rotor2 = sortABC(abc, rotors[1])
-    rotor1 = sortABC(abc, rotors[0])
-    print(rotor3)
+    rotor3 = sortABC(abc, rotors[0])
 
-    rotor3_letter = ""
-    rotor2_letter = ""
-    rotor1_letter = ""
+    shuffle1 = ['z', 'w', 'q', 'k', 'e', 'x', 'n', 'd', 'r', 'h', 'm', 'g',
+                'u', 'o', 't', 'j', 'v', 'l', 'p', 'y', 's', 'i', 'f', 'c', 'b', 'a']
+    shuffle1 = sortABC(shuffle1, rotors[2])
+
+    shuffle2 = ['j', 'l', 'f', 'd', 'b', 'a', 'w', 's', 'o', 'k', 'g', 'c',
+                'y', 'u', 'q', 'm', 'i', 'e', 't', 'r', 'p', 'z', 'x', 'v', 'n', 'h']
+    shuffle2 = sortABC(shuffle2, rotors[1])
+
+    
+    shuffle3 = ['q', 'k', 'e', 'n', 'v', 'j', 'b', 'm', 'p', 'h', 'z', 'y',
+                'g', 't', 's', 'd', 'a', 'c', 'f', 'i', 'l', 'o', 'r', 'u', 'x', 'w']
+    shuffle3 = sortABC(shuffle3, rotors[0])
 
     rotor3_letter_pos = 0
     rotor2_letter_pos = 0
@@ -52,81 +64,55 @@ def encryptLetter(letter, rotors):
             continue
     rotor3_letter = rotor3[rotor3_letter_pos]
 
-    # Second rotor
-    for pos in range(len(abc)):
-        if abc[pos] == rotor3_letter:
+    for pos in range(len(shuffle3)):
+        if shuffle3[pos] == rotor3_letter:
+            rotor3_letter_pos = pos
+            break
+        else:
+            continue
+
+    rotor2_letter = rotor2[rotor3_letter_pos]
+
+    for pos in range(len(shuffle2)):
+        if shuffle2[pos] == rotor2_letter:
             rotor2_letter_pos = pos
             break
         else:
             continue
-    rotor2_letter = rotor2[rotor2_letter_pos]
 
-    # First rotor
-    for pos in range(len(abc)):
-        if abc[pos] == rotor2_letter:
+    rotor1_letter = rotor1[rotor2_letter_pos]
+
+    for pos in range(len(shuffle1)):
+        if shuffle1[pos] == rotor1_letter:
             rotor1_letter_pos = pos
             break
         else:
             continue
-    rotor1_letter = rotor1[rotor1_letter_pos]
-    return rotor1_letter
 
-    # reflector_pos = 0
-    # for pos in range(len(abc)):
-    #     if abc[pos] == rotor1_letter:
-    #         reflector_pos = 25 - pos
-
-    # # Reflection
-    # reflected_letter = abc[reflector_pos]
-
-    # # First rotor again with reflected letter
-    # for pos in range(len(abc)):
-    #     if abc[pos] == reflected_letter:
-    #         rotor1_letter_pos = pos
-    #         break
-    #     else:
-    #         continue
-    # rotor1_letter = rotor1[rotor1_letter_pos]
-
-    # # Second rotor with reflected letter
-    # for pos in range(len(abc)):
-    #     if abc[pos] == rotor1_letter:
-    #         rotor2_letter_pos = pos
-    #         break
-    #     else:
-    #         continue
-    # rotor2_letter = rotor2[rotor2_letter_pos]
-
-    # for pos in range(len(abc)):
-    #     if abc[pos] == rotor2_letter:
-    #         rotor3_letter_pos = pos
-    #         break
-    #     else:
-    #         continue
-
-    # return_letter = rotor3[rotor3_letter_pos]
-
-    # return return_letter//
+    encrypted_letter = abc[rotor1_letter_pos]
+    print("---"+encrypted_letter+"/n")
+    return encrypted_letter
 
 
-print(encryptLetter("b", [23, 1, 6]))
+
+print(encryptLetter("m", [13, 22, 3]))
 
 
 # Move the rotors position
 def addRotors(rotors):
-    rotors[2] += 1
+    rotors[0] += 1
 
-    if (rotors[2] > 26):
+    if (rotors[0] > 26):
 
-        rotors[2] = 1
+        rotors[0] = 1
         rotors[1] += 1
 
         if (rotors[1] > 26):
 
             rotors[1] = 1
-            rotors[0] += 1
+            rotors[2] += 1
 
-            if (rotors[0] > 26):
-                rotors[0] = 1
+            if (rotors[2] > 26):
+                rotors[2] = 1
 
     return rotors

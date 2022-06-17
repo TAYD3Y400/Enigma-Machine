@@ -13,7 +13,7 @@ root= Tk()
 
 message = ""
 
-
+rotors=[]
 
 r1Label = Label(root1, text="R1")
 r2Label = Label(root1, text="R2")
@@ -23,29 +23,29 @@ r1Label.grid(row=1, column=1)
 r2Label.grid(row=1, column=2)
 r3Label.grid(row=1, column=3)
 
-entryMessage1 = Entry(root1, width=1, bg="white", fg="black")
-entryMessage2 = Entry(root1, width=1, bg="white", fg="black")
-entryMessage3 = Entry(root1, width=1, bg="white", fg="black")
+entryMessage1 = Entry(root1, width=3, bg="white", fg="black")
+entryMessage2 = Entry(root1, width=3, bg="white", fg="black")
+entryMessage3 = Entry(root1, width=3, bg="white", fg="black")
 
 entryMessage1.grid(row=2, column=1)
 entryMessage2.grid(row=2, column=2)
 entryMessage3.grid(row=2, column=3)
 
 
-def main():
-    rotors = []
-rr = tkinter.Button(root1, text="Ok", bg="green", command= lambda: rotorsReady ([entryMessage1.get(),entryMessage2.get(), entryMessage3.get()])).grid(row=2, column=4)
+rr = tkinter.Button(root1, text="Ok", bg="green", command= lambda: rotorsReady ([int(entryMessage1.get()),int(entryMessage2.get()), int(entryMessage3.get())])).grid(row=2, column=4)
  
 
-def rotorsReady(rotors):  
-    if (rotors[0]!=NONE) and (rotors[1]!=NONE) and (rotors[2]!=NONE):
-        fitRotors(rotors)
+def rotorsReady(newRotors):  
+    if (newRotors[0]!=NONE) and (newRotors[1]!=NONE) and (newRotors[2]!=NONE):
+        fitRotors(newRotors)
         keyboard()
         light_panel()
         root1.destroy()
         
 
-def fitRotors(rotors):
+def fitRotors(newRotors):
+    global rotors
+    rotors=newRotors
 
     r1Label = Label(root, text="R1")
     r2Label = Label(root, text="R2")
@@ -146,35 +146,24 @@ def bright_letter_off(letter, row, column):
 
 
 def keyboard_letter(letter, row, column):
-    letter_encrypted= encryptLetter(letter, #rotors) # falta encriptar
 
+    global rotors
     global message
+
+    letter_encrypted = encryptLetter(letter, rotors).upper()
+    newRotors = addRotors(rotors)
+
+    fitRotors(newRotors)
+
     message=message+(letter_encrypted)
-    print("letra ingresada:" + letter + "encriptada es:" + letter_encrypted)
+
     fitMessage(message)
     bright_letter(letter_encrypted, row, column)
 
 
-
-
 def fitMessage(message):
     message = Label(root, text=message)
-
     message.grid(row=2, column=0)
 
-
-def encrypt(rotors):
-    print(entryMessage.get())
-
-    # abc = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-
-    rotors = addRotors(rotors)
-    writeFile('rotors.txt', rotors)
-    fitRotors(rotors)
-
-    return rotors
-
-
-main()
 
 root.mainloop()
